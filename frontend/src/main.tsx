@@ -10,18 +10,24 @@ import App from './App.tsx';
 import './index.css';
 import HomeScreen from './components/HomeScreen.tsx';
 import LoginScreen from './components/LoginScreen.tsx';
+import RegisterScreen from './components/RegisterScreen.tsx';
+import { Provider } from 'react-redux';
+import store from './store.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/" element={<HomeScreen />} index={true} />
       <Route path="/login" element={<LoginScreen />} />
+      <Route path="/register" element={<RegisterScreen />} />
     </Route>
   )
 );
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  </Provider>
 );

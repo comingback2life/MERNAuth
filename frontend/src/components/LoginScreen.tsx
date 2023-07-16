@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { FcHome } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const handleOnSubmit: React.MouseEventHandler<HTMLButtonElement> = async (
     e
   ) => {
@@ -114,14 +112,8 @@ const LoginScreen = () => {
             </button>
           </div>
           <div className="py-8">
-            <Link
-              to="/"
-              className="inline-block rounded text-black px-8 py-3 outline outline-offset-2 outline-red-500 text-sm font-medium  transition hover:rotate-2 hover:scale-110 focus:outline-none focus:ring hover:bg-red-500 hover:text-white"
-            >
-              <div className="flex">
-                <FcHome size={20} />
-                <p className="display:inline px-3">Home</p>
-              </div>
+            <Link to="/">
+              <p className="underline text-sm text-gray-500">Back to Home</p>
             </Link>
           </div>
         </form>

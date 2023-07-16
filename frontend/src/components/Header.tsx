@@ -27,16 +27,18 @@ const Header = () => {
 
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
-              <Link to="/login">
-                <a className="block rounded-md bg-sky-400 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-500">
-                  Login
-                </a>
+              <Link
+                to="/login"
+                className="block w-full rounded px-12 py-3 text-sm font-medium text-red-600 shadow hover:text-red-700 focus:outline-none focus:ring active:text-red-500 sm:w-auto"
+              >
+                Login
               </Link>
 
-              <Link to="/register">
-                <a className="hidden rounded-md px-5 py-2.5 text-sm font-medium bg-sky-400 text-white transition hover:bg-blue-500 sm:block">
-                  Register
-                </a>
+              <Link
+                to="/register"
+                className="block w-full rounded bg-red-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto"
+              >
+                Register
               </Link>
             </div>
 
