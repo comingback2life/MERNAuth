@@ -1,11 +1,8 @@
-import Header from './components/Header';
-import HomeScreen from './components/HomeScreen';
-
+import { Outlet } from 'react-router-dom';
 function App() {
   return (
     <>
-      <Header />
-      <HomeScreen />
+      <Outlet />
     </>
   );
 }
