@@ -9,8 +9,7 @@
     "server": "nodemon backend/server.js",
     "start": "node backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build":"cd backend && npm i && cd ../frontend && npm run build"
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
