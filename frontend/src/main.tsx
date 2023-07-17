@@ -13,6 +13,8 @@ import LoginScreen from './components/LoginScreen.tsx';
 import RegisterScreen from './components/RegisterScreen.tsx';
 import { Provider } from 'react-redux';
 import store from './store.tsx';
+import ProfileScreen from './components/ProfileScreen.tsx';
+import PrivateRoute from './components/PrivateRoute.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +22,12 @@ const router = createBrowserRouter(
       <Route path="/" element={<HomeScreen />} index={true} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
+      {/**
+       * Private Routes
+       */}
+      <Route path="" element={<PrivateRoute />}>
+        <Route path="/profile" element={<ProfileScreen />} />
+      </Route>
     </Route>
   )
 );

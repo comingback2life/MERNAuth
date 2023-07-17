@@ -1,14 +1,44 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../slices/usersApiSlice';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { setCredentials } from '../slices/authSlice';
+import { toast } from 'react-toastify';
+import Loader from './Loader';
+type UserBasicCredentials = {
+  email: string;
+  password: string;
+};
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const [login, { isLoading }] = useLoginMutation(); // isLoading and Error comes from RTK
+  const { userInfo } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/');
+    }
+  }, [navigate, userInfo]);
+
   const handleOnSubmit: React.MouseEventHandler<HTMLButtonElement> = async (
     e
   ) => {
     e.preventDefault();
-    console.log('submit');
+    try {
+      const res = await login({
+        email,
+        password,
+      } as UserBasicCredentials).unwrap();
+
+      dispatch(setCredentials({ ...res }));
+      navigate('/');
+    } catch (err: any) {
+      toast.error(err?.data?.message || err);
+    }
   };
 
   return (
@@ -102,12 +132,13 @@ const LoginScreen = () => {
                 Sign up
               </Link>
             </p>
-
+            {isLoading && <Loader />}
             <button
               type="submit"
               className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
               onClick={handleOnSubmit}
             >
+              {isLoading && <Loader />}
               Sign in
             </button>
           </div>

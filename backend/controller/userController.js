@@ -74,7 +74,7 @@ export const updateUserProfile = expressAsyncHandler(async (req, res) => {
     if (user) {
         user.name = name || user.name;
         user.email = email || user.email;
-        if (password) {
+        if (password && password !== '') {
             user.password = password;
         }
         const updatedUser = await user.save();

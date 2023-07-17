@@ -1,17 +1,41 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { useRegisterMutation } from '../slices/usersApiSlice';
+import { toast } from 'react-toastify';
+import { setCredentials } from '../slices/authSlice';
+import Loader from './Loader';
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { userInfo } = useAppSelector((state) => state.auth);
+  const [register, { isLoading }] = useRegisterMutation();
 
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/');
+    }
+  }, [navigate, userInfo]);
   const handleOnSubmit: React.MouseEventHandler<HTMLButtonElement> = async (
     e
   ) => {
     e.preventDefault();
-    console.log('submit');
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match');
+    } else {
+      try {
+        const res = await register({ email, password, name }).unwrap();
+        dispatch(setCredentials({ ...res }));
+        navigate('/');
+      } catch (error: any) {
+        toast.error(error?.data?.message || 'An Unknown Error Occured');
+      }
+    }
   };
   return (
     <section className="relative flex flex-wrap lg:h-screen lg:items-center">
@@ -184,7 +208,7 @@ const RegisterScreen = () => {
                 Login
               </Link>
             </p>
-
+            {isLoading && <Loader />}
             <button
               type="submit"
               className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
