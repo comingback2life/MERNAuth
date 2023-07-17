@@ -1,6 +1,6 @@
 import { apiSlice } from './apiSlice';
 
-const USERS_URL = process.env.BACKEND_URL + '/api/users';
+const USERS_URL = process.env.VITE_BACKEND_URL + '/api/users';
 
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
